@@ -188,7 +188,9 @@ with tab2:
         pred = model.predict(input_df)[0]
         prob = model.predict_proba(input_df)[0][1]
 
-        st.progress(int(prob * 100))
+        prob = float(prob)
+        prob = max(0.0, min(prob, 1.0))
+        st.progress(prob)
         if pred == 1:
             st.error(f"⚠️ High Attrition Risk — {prob*100:.1f}% probability")
         else:
